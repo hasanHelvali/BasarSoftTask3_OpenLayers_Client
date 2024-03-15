@@ -1,0 +1,37 @@
+<body>
+    <div id="map" class="map"></div>
+    <form class="form">
+      <div class="">
+        <select id="type" class="form-select  "[(ngModel)]="options"  [ngModelOptions]="{standalone: true}" #selectBox (change)="addFeature(selectBox.value)" >
+          <option value="">-- Seçiniz --</option>
+          <option value="Point">Point</option>
+          <option value="LineString">LineString</option>
+          <option value="Polygon">Polygon</option>
+          <option value="Circle">Circle</option>
+          <!-- <option value="Circle">{{options}}</option> -->
+        </select>
+      </div>
+    </form>
+    <script type="module" src="main.js"></script>
+  </body>
+  <!-- <button id="typeButton" class="btn btn-light" (click)="getGeometryListModal()">Bütün Kayıtları Getir</button> -->
+  <button id="typeButton" class="btn btn-danger" mat-button (click)="openDilaog()" style="background-color: #fff; color: black;">Tüm Kayıtlar</button>
+<br> <br>
+
+
+<div *ngIf="this.isFeatureChanged">
+  <button id="typeButton2" class="btn btn-warning " (click)="openChangeDialog()" style="background-color: #fff; color: black;"
+  >Değişiklikleri Onayla</button>
+</div>
+
+
+<div>
+  <app-prime-ng-modal id="typeButton3"></app-prime-ng-modal>
+</div>
+
+<div>
+  <app-intersection id="typeButton4"></app-intersection>
+</div>
+<!-- <div class="popup " title="Feature Açıklaması">
+  Feature Adı
+</div> -->

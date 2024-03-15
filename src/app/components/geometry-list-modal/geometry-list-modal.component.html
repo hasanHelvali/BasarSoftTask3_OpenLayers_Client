@@ -1,0 +1,109 @@
+
+<!-- <div class="modal" id="liste">
+  <div style="z-index: 999999999; background-color: black; color: beige; font-size: 99;">{{listLocAndUsers.length}}</div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Kayıtlar Listesi</h4>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+          data-bs-dismiss="modal"
+        ></button>
+      </div> -->
+
+      <!-- <div class="modal-body" *ngIf="listLocAndUsers?.length>0; else noList">
+          <table class="table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">WKT</th>
+                <th scope="col">Göster</th>
+                <th scope="col">Sil</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr id="dataRow{{item.id}}" class="trRow" *ngFor="let item of listLocAndUsers">
+                {{listLocAndUsers[0].id}}asada
+                <th class="border" scope="row">{{item.id}}</th>
+                <td class="border">{{ item.name }}</td>
+                <td class="border" >{{ item.type }}</td>
+                <td class="border"><span><i class="bi bi-pin-map-fill text-warning" (click)="getLocation(item.wkt)" ></i></span></td>
+                <td><span><i class="bi bi-trash text-danger" (click)="deleteLocAndUser(item.id)"></i></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
+        <!-- <div *ngIf="listLocAndUsers.length>0;">
+          <div *ngTemplateOutlet="list"></div>
+        </div>
+        <div *ngIf="listLocAndUsers.length==0;">
+          <div *ngTemplateOutlet="noList"></div>
+        </div> -->
+
+      <!-- <ng-template #noList>Bir Kayıt Bulunamadı</ng-template>
+      <ng-template #list>
+        <table class="table">
+          <thead class="text-center">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">WKT</th>
+              <th scope="col">Göster</th>
+              <th scope="col">Sil</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr id="dataRow{{item.id}}" class="trRow" *ngFor="let item of listLocAndUsers">
+              {{listLocAndUsers[0].id}}asada
+              <th class="border" scope="row">{{item.id}}</th>
+              <td class="border">{{ item.name }}</td>
+              <td class="border" >{{ item.type }}</td>
+              <td class="border"><span><i class="bi bi-pin-map-fill text-warning" (click)="getLocation(item.wkt)" ></i></span></td>
+              <td><span><i class="bi bi-trash text-danger" (click)="deleteLocAndUser(item.id)"></i></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<h2 mat-dialog-title>Kayıt Listesi</h2>
+<mat-dialog-content class="mat-typography">
+  <table class="table">
+    <thead class="text-center">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">WKT</th>
+        <th scope="col">Göster</th>
+        <th scope="col">Sil</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr id="dataRow{{item.id}}" class="trRow" *ngFor="let item of listLocAndUsers">
+        <th class="border" scope="row">{{item.id}}</th>
+        <td class="border">{{ item.name }}</td>
+        <td class="border" >{{ item.type }}</td>
+        <td class="border"><span><i class="bi bi-pin-map-fill text-warning" (click)="getLocation(item.id,item.name,item.type,item.wkt)" 
+          [mat-dialog-close]="true" ></i></span></td>
+        <td><span><i class="bi bi-trash text-danger" (click)="deleteLocAndUser(item.id)"></i></span></td>
+      </tr>
+    </tbody>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Çık</button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>
+

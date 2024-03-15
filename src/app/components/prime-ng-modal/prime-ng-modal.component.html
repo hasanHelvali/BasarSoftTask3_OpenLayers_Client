@@ -1,0 +1,11 @@
+
+<div class="card flex flex-column align-items-center gap-0">
+    <div class="flex flex-wrap gap-0">
+        <p-button (click)="showDialog()" icon="pi pi-arrow-down" label="Tüm Kayıtları Getir" styleClass="p-button-secondary"></p-button>
+    </div>
+    <p-dialog header="Kayıtlar" [(visible)]="visible" [position]="'top'" [style]="{ width: '35vw', height:'25vh'}"(onHide)="primeModalHide()">
+        <div class="card flex justify-content-center">
+            <p-tree class="w-full md:w-30rem" [value]="files" (onNodeSelect)="selected($event)" selectionMode="single" ></p-tree>
+        </div>
+    </p-dialog>
+</div>

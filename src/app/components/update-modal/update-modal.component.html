@@ -1,0 +1,21 @@
+<div class="modal" id="myUpdateModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Koordinat Güncelleme Ekranı</h4>
+          <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <form class="form">
+                <input type="text" class="form-control" placeholder="İsim" #name  value="{{data?.name}}">
+                <label class="form-control-plaintext  " for="">Feature : {{data?.type}}</label> <br>
+                <textarea class="form-control-plaintext " style="resize: none;width: 100%; height: 100px;" [disabled]="true" >Coordinates : 
+                    {{data?.coordinates}}</textarea>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="save(name.value)">Kaydet</button>
+        </div>
+      </div>
+    </div>
+</div>
