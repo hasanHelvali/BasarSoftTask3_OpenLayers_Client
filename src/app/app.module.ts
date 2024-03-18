@@ -20,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
 import { TreeModule } from 'primeng/tree';
 import { IntersectionComponent } from './components/intersection/intersection.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { IntersectionComponent } from './components/intersection/intersection.co
     UpdateModalComponent,
     PrimeNgModalComponent,
     IntersectionComponent,
+    LoginRegisterComponent,
   ],
   imports: [
     BrowserModule,
