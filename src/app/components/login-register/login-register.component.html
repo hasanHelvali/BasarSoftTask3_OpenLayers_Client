@@ -1,1 +1,109 @@
-<p>login-register works!</p>
+
+<div *ngIf="isLogin;else signup">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center min-vh-100">
+                    <div class="w-100 d-block bg-white shadow-lg rounded my-5">
+                        <div class="row">
+                            <div class="col-lg-5 d-none d-lg-block bg-login rounded-left">
+                                <img src="./../../../assets/Başlıksız.png" alt="" class="w-100">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="p-5">
+                                    <div class="text-center mb-5">
+                                        <a href="/Default/Index/" class="text-dark font-size-22 font-family-secondary">
+                                            <i class="mdi mdi-alpha-x-circle"></i> <b>Başarsoft Task 3- Authentication</b>
+                                        </a>
+                                    </div>
+                                    <h1 class="h5 mb-1">Tekrar Hoş Geldin!</h1>
+                                    <p class="text-muted mb-4">Harita sayfasına erişim için bilgilerinizi giriniz.</p>
+                                    <form class="user" method="post">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Kullanıcı Adınız-Email" asp-for="Username" #loginMail>
+                                        </div> <br>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Şifreniz" asp-for="Password" #loginPassword>
+                                        </div> <br>
+                                        <button class="btn btn-success btn-block waves-effect waves-light" (click)="loginAccountStart({email:loginMail.value,password:loginPassword.value})"> Giriş Yap </button>
+                                    </form>
+                                    <div class="row mt-4">
+                                        <div class="col-12 text-center">
+                                            <p class="text-muted mb-0">Bir hesabınız yok mu? <a class="text-muted font-weight-medium ml-1" (click)="changeState()"
+                                                style="cursor: pointer;"><b>Bir Hesap Oluştur</b></a></p>
+                                        </div> 
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+<ng-template #signup>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center min-vh-100">
+                        <div class="w-100 d-block bg-white shadow-lg rounded my-5">
+                            <div class="row">
+                                <div class="col-lg-5 d-none d-lg-block bg-register rounded-left">
+                                    <img src="../../../assets/Başlıksız.png" class="w-100">
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="p-5">
+                                        <div class="text-center mb-5">
+                                            <a href="/Default/Index/" class="text-dark font-size-22 font-family-secondary">
+                                                <i class="mdi mdi-alpha-x-circle"></i> <b>
+                                                    Başarsoft Task 3- Authentication
+                                                </b>
+                                            </a>
+                                        </div>
+                                        <h1 class="h5 mb-1">Kayıt Olun!</h1>
+                                        <p class="text-muted mb-4">Bir hesabınız yok mu, 1 dakika içinde hesabınızı oluşturun!</p>
+                                        <form class="user" method="post" >
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Adınız" asp-for="Name" #signupName>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Soyadınız" asp-for="Surname" #signUpSurname>
+                                                </div>
+                                            </div> <br>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <input type="text" class="form-control form-control-user" id="exampleInputUsername" placeholder="Kullanıcı Adınız veya Email" asp-for="Username" #signUpMail >
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Şifreniz" asp-for="Password" #signUpPassword>
+                                                </div>
+                                            </div> <br>
+                                            <button class="btn btn-success btn-block waves-effect waves-light" (click)="createAccountStart({name:signupName.value,email:signUpMail.value,password:signUpPassword.value})"> Hesabı Oluştur </button>
+                                        </form>
+                                        <div class="row mt-4">
+                                            <div class="col-12 text-center">
+                                                <p class="text-muted mb-0">Bir hesabın var mı? <a style="cursor: pointer;" class="  text-muted font-weight-medium ml-1" 
+                                                    (click)="changeState()"><b>Giriş Yap</b></a></p>
+                                            </div> 
+                                        </div>
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </div>
+    </div>
+</ng-template>
+
+
+
+        
+
+

@@ -33,6 +33,7 @@ import { PointWKT } from 'src/app/models/pointWkt';
 import { Tooltip } from 'primeng/tooltip';
 import { overlapsType } from 'ol/expr/expression';
 import { toStringHDMS } from 'ol/coordinate';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -72,6 +73,7 @@ export class MapComponent extends BaseComponent implements OnInit {
     public dialog: MatDialog,
     public updateModal:UpdateModalComponent,
     private readonly changeDetectorRef: ChangeDetectorRef,
+    private authService:AuthService
     ) {
       super(ngxSpinner);
     }
@@ -229,8 +231,6 @@ export class MapComponent extends BaseComponent implements OnInit {
       const _type: FeatureType = event.feature
         .getGeometry()
         .getType() as FeatureType;
-        console.log(_type);
-        
       if(feature){
         that.generalDataService.createdFeature.next("Feature Olusturuldu.");
         // that.map.removeInteraction(that.drawInteraction)
@@ -258,6 +258,7 @@ export class MapComponent extends BaseComponent implements OnInit {
   }
 
   openDilaog(){
+    this.authService.verifyToken();
     this.showSpinner();
     this.httpCLientService.get<LocAndUsers>({controller:"maps"}).subscribe({
       next:(data:LocAndUsers[])=>{

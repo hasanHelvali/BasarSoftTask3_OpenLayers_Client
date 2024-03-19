@@ -21,6 +21,8 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TreeModule } from 'primeng/tree';
 import { IntersectionComponent } from './components/intersection/intersection.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
+import { jwtDecode} from '../../node_modules/jwt-decode/build/cjs/index';
+
 @NgModule({
   declarations: [
     AppComponent,

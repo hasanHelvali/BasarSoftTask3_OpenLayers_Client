@@ -37,6 +37,9 @@ export class GeneralDataService {
   public modelIntersection= new Subject<any>()
   public intersectionActive= new Subject<boolean>()
   public noPopup= new Subject<any>()
+  
+  public isAuth= new Subject<any>()
+
   // public hdms= new Subject<string>()
 
   // public modalAc = new Subject<any>()

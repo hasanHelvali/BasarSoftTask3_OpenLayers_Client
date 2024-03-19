@@ -18,7 +18,9 @@ import { UpdateLocation } from 'src/app/models/updateLocation';
   styleUrls: ['./geometry-list-modal.component.css']
 })
 export class GeometryListModalComponent extends BaseComponent implements OnInit{
-  
+  visible: boolean = false;
+
+  position: string = 'top';
 // listLocAndUsers:LocAndUsers[]=[]
 isModalActive:boolean=false;
   dataSource: MatTableDataSource<any>|any;
@@ -36,6 +38,7 @@ isModalActive:boolean=false;
     this.generalDataService.listData.subscribe({
       next:(data:LocAndUsers[])=>{
         this.listLocAndUsers=data;
+        this.showDialog("top");
       },
       error:(err)=>{
         alert("Veriler Getirilirken Bir Hata Oluştu.")
@@ -105,6 +108,13 @@ isModalActive:boolean=false;
       geoLoc.wkt=wkt
       this.generalDataService.mapFeature.next(geoLoc);
     }
+
+
+
+    showDialog(position: string) {
+      this.position = position;
+      this.visible = true;
+  }
 
    
 }
