@@ -258,7 +258,7 @@ export class MapComponent extends BaseComponent implements OnInit {
   }
 
   openDilaog(){
-    this.authService.verifyToken();
+    // this.authService.verifyToken();
     this.showSpinner();
     this.httpCLientService.get<LocAndUsers>({controller:"maps"}).subscribe({
       next:(data:LocAndUsers[])=>{

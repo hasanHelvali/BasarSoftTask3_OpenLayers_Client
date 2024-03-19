@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,7 @@ import { TreeModule } from 'primeng/tree';
 import { IntersectionComponent } from './components/intersection/intersection.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { jwtDecode} from '../../node_modules/jwt-decode/build/cjs/index';
+import { JwtInterceptService } from './interceptor/jwt-intercept.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,15 @@ import { jwtDecode} from '../../node_modules/jwt-decode/build/cjs/index';
     TreeModule,
     TreeTableModule
   ],
-  providers: [{provide:"baseUrl",useValue:"https://localhost:7295/api"},MyModalComponent,GeometryListModalComponent,UpdateModalComponent],
+  providers: [
+    {provide:"baseUrl",useValue:"https://localhost:7295/api"},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptService, multi: true },
+    /*Interceptor yapısını kullanabilmemiz icin bu yapıyı merkez 
+    module un providers ina eklememiz gerekir. Artık httpInterceptor kullanılabilir.*/ 
+    MyModalComponent,
+    GeometryListModalComponent,
+    UpdateModalComponent,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

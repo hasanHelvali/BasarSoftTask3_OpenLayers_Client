@@ -15,11 +15,11 @@ export class AuthService {
   isActive:boolean;
   sonuc:boolean;
   //JWT'yi Doğrulama
-  // verifyToken():Observable<any>{
-  //   var token = this.getToken();
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  //    return this.httpClient.get<boolean>(this.baseUrl+"/AuthManagement/VerifyToken",{headers:headers});
-  // }
+  verifyToken():Observable<any>{
+    // var token = this.getToken();
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+     return this.httpClient.get<boolean>(this.baseUrl+"/AuthManagement/VerifyToken");//backend e istek yapıp token dogrulaması yapılıyor.
+  }
 
   // JWT'yi localStorage'a kaydetme
   setToken(token: string): void {
