@@ -21,8 +21,8 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TreeModule } from 'primeng/tree';
 import { IntersectionComponent } from './components/intersection/intersection.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
-import { jwtDecode} from '../../node_modules/jwt-decode/build/cjs/index';
 import { JwtInterceptService } from './interceptor/jwt-intercept.service';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,8 @@ import { JwtInterceptService } from './interceptor/jwt-intercept.service';
     DialogModule,
     ButtonModule,
     TreeModule,
-    TreeTableModule
+    TreeTableModule,
+    AdminModule
   ],
   providers: [
     {provide:"baseUrl",useValue:"https://localhost:7295/api"},
