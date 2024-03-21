@@ -8,6 +8,7 @@ import { LocAndUsers } from '../models/locAndUsers';
 import { CustomHttpClient } from './customHttpClient.service';
 import { UpdateLocation } from '../models/updateLocation';
 import { CustomIntersection } from '../models/intersection';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,9 @@ export class GeneralDataService {
   
   public isAuth= new Subject<any>()
 
+  // public token= new Subject<any>()
+  // public roles= new Subject<any>()
+
   // public hdms= new Subject<string>()
 
   // public modalAc = new Subject<any>()
@@ -52,6 +56,7 @@ export class GeneralDataService {
   isFeatureUpdate:boolean;
   updatedLocation:IGeoLocation;
    updatedWkt:string
+   token:string
 
   options = [
     // { value: 'default', text: '--Seçiniz--' },
@@ -90,9 +95,6 @@ export class GeneralDataService {
     this.location=data;
     this.isModalActive=true;
   }
-
-  // setOptions(variable:boolean){
-  // }
   getGeometryListModal(){
     this.httpCLientService.get<LocAndUsers>({controller:"maps"}).subscribe({
       next:(data:LocAndUsers[])=>{
@@ -103,19 +105,20 @@ export class GeneralDataService {
       }
     });
   }
+  resolvedToken:string;
+  role:string;
+  userName:string;
 
-  setFeatureUpdate(){
-
+  jwtResolve(){
+    this.token= localStorage.getItem('token');
+    this.resolvedToken=jwtDecode(this.token);
+    this.role= this.resolvedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; 
+    this.userName=this.resolvedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+    console.log(this.resolvedToken);
+    console.log(this.role);
+    console.log(this.userName);
   }
-  // setFeatureUpdate(){
-  //   this.featureUpdate.subscribe({
-  //     next:(data:boolean)=>{
-  //       this.isFeatureUpdate=data;
-  //     },
-  //     error:(err)=>{
-        
-  //     }
-  //   })
-  // }
+
+
 
 }

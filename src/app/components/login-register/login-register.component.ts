@@ -8,6 +8,7 @@ import { Login } from 'src/app/models/login';
 import { SignUp } from 'src/app/models/signup';
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomHttpClient } from 'src/app/services/customHttpClient.service';
+import { GeneralDataService } from 'src/app/services/general-data.service';
 
 @Component({
   selector: 'app-login-register',
@@ -18,7 +19,7 @@ export class LoginRegisterComponent extends BaseComponent{
 
   isLogin:boolean=false;
   constructor(private httpClient:CustomHttpClient, private chr:ChangeDetectorRef,ngxSpinner:NgxSpinnerService, private authService:AuthService,
-    private route:Router) {
+    private route:Router,private generalDataService:GeneralDataService) {
     super(ngxSpinner)
   }
 
@@ -59,14 +60,13 @@ export class LoginRegisterComponent extends BaseComponent{
   loginAccountStart(loginModel:Partial<Login>){
     this.showSpinner();
     this.httpClient.post<any>({controller:"AuthManagement",action:"LoginUser"},loginModel).subscribe({
-      next:(data)=>{
+      next:(data)=>{//Token in basarıyla uretilip geldigi yer.
         this.authService.removeToken();
-        // alert("Hoşgeldiniz");
-        console.log(data);
-        this.authService.setToken(data.accessToken)
+        this.authService.setToken(data.accessToken)//Token guncellendi.
         this.isLogin=true;
         this.route.navigate(["/maps"])
         this.hideSpinner();
+        this.generalDataService.jwtResolve()
       },
       error:(err)=>{
         this.authService.removeToken();
@@ -75,6 +75,7 @@ export class LoginRegisterComponent extends BaseComponent{
         this.hideSpinner();
       }
     })
+    this.chr.detectChanges()
   }
 }
 

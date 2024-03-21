@@ -1,21 +1,24 @@
-<!-- 
 <div class="card">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem'}">
+    <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Düzenle</th>
+                <th>Sil</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-user>
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td><span><i class="bi bi-pencil-square text-warning"></i></span></td>
+                <td><span><i class="bi bi-trash text-danger"></i></span></td>
             </tr>
         </ng-template>
     </p-table>
-</div> -->
+</div>

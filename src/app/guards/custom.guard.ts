@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { inject } from '@angular/core';
+import { ChangeDetectorRef, inject } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneralDataService } from '../services/general-data.service';
 

@@ -32,17 +32,18 @@
 <div>
   <app-intersection id="typeButton4"></app-intersection>
 </div>
-<!-- <div class="popup " title="Feature Açıklaması">
-  Feature Adı
+
+
+<!-- <div *ngIf="jwtDataResolveService.roles=='SuperAdmin'">
+  {{roles}}
+  <a routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
 </div> -->
-
-
-
-<!-- <div class="container mt-4" *ngIf=" generalDataService._wkt !=null">
-  <app-my-modal></app-my-modal>
+<div *ngIf="this.generalDataService.role=='SuperAdmin'">
+  <a routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
 </div>
-<app-update-modal></app-update-modal>
-<div>
+
+<div >
+  <a routerLink="/login-signup" class="btn btn-secondary" id="typeButton6" (click)="logout()" >Çıkış{{roles}}</a>
 </div>
-<app-geometry-list-modal></app-geometry-list-modal> -->
+
 

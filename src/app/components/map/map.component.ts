@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   Type,
   numberAttribute,
 } from '@angular/core';
@@ -40,7 +42,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./map.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent extends BaseComponent implements OnInit {
+export class MapComponent extends BaseComponent implements OnInit,OnChanges {
   map: Map;
   vectorLayer: any;
   options = "";
@@ -51,6 +53,7 @@ export class MapComponent extends BaseComponent implements OnInit {
   intersection:LocAndUsers=new LocAndUsers();
   pixel:any;
   drawInteraction:Draw;
+  isAdmin:boolean=false;
 
   container = document.getElementById('popup');
    overlay = new Overlay({
@@ -62,6 +65,7 @@ export class MapComponent extends BaseComponent implements OnInit {
     },
   });
   
+  roles:any;
 
   constructor(
     ngxSpinner: NgxSpinnerService,
@@ -73,12 +77,16 @@ export class MapComponent extends BaseComponent implements OnInit {
     public dialog: MatDialog,
     public updateModal:UpdateModalComponent,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private authService:AuthService
+    public authService:AuthService,
+    
     ) {
       super(ngxSpinner);
     }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
     
   ngOnInit(): void {
+    this.generalDataService.jwtResolve();
     this.map = new Map({
       target: 'map',
       layers: [
@@ -91,10 +99,7 @@ export class MapComponent extends BaseComponent implements OnInit {
         zoom: 6.8,
       }),
     });
-    this.addLayer(); //haritaya bir layer eklendi.
-    // this.locDataService.veriOlusturulduSubject.subscribe((veri) => {
-    //   console.log('veri geldi');
-    // });
+    this.addLayer(); 
     this.generalDataService.veriOlusturulduSubject.subscribe({
       next:()=>{
       this.clearFeature();//fetaure ların silinecegi fonskiyon burada tanımlandı.
@@ -433,6 +438,14 @@ export class MapComponent extends BaseComponent implements OnInit {
    this.generalDataService.intersectionActive.next(false);
    this.changeDetectorRef.detectChanges();
   }
+
+
+  logout(){
+    this.authService.removeToken()//hafızadaki token temizlendi.
+    this.changeDetectorRef.detectChanges();
+
+  }
+
 }
 export enum FeatureType {
   Circle = 'Circle',
