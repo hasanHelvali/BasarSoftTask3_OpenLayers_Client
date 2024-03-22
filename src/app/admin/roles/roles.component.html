@@ -6,20 +6,22 @@
                 <th>Email</th>
                 <th>Role</th>
                 <th>Rol Düzenle</th>
+                <th>Onayla</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-user>
-            <tr>
+        <ng-template pTemplate="body" let-user >
+            <tr *ngIf="user.role!='SuperAdmin'">
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
-                <td *ngIf="user.role!='SuperAdmin'">
-                    <!-- <div class="card flex justify-content-center"> -->
-                        <p-dropdown  [options]="cities" optionLabel="name"
-                         [showClear]="true" placeholder="Rol Seçiniz"></p-dropdown>
-                    <!-- </div> -->
+                <td >
+                    <p-dropdown #dropdown id="{{user.id}}"  [options]="userOpt" optionLabel="name"
+                     [showClear]="true" placeholder="Rol Seçiniz"  (onChange)="changeRole(user,dropdown.value)" >
+                    </p-dropdown>
                 </td>
+                <td><button id="btn{{user.id}}" class="btn btn-danger" [disabled]="true" (click)="changeRoleContinue(user,dropdown.value)">Onayla</button></td>
             </tr>
         </ng-template>
     </p-table>
 </div>
+

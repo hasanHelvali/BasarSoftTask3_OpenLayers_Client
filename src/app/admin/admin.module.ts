@@ -8,6 +8,10 @@ import { authGuard } from '../guards/custom.guard';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule} from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { DialogService } from 'primeng/dynamicdialog';
 @NgModule({
   declarations: [
     UsersComponent,
@@ -24,7 +28,10 @@ import { FormsModule } from '@angular/forms';
       {path:"**",component:AdminPanelComponent,canActivate:[authGuard]}
     ]),
     DropdownModule,
-    FormsModule
+    FormsModule,
+    DialogModule,
+    ButtonModule,
+    MessagesModule,
   ]
 })
 export class AdminModule { }

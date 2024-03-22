@@ -49,7 +49,7 @@ import { AdminModule } from './admin/admin.module';
     ButtonModule,
     TreeModule,
     TreeTableModule,
-    AdminModule
+    AdminModule,
   ],
   providers: [
     {provide:"baseUrl",useValue:"https://localhost:7295/api"},

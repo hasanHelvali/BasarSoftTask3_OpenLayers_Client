@@ -11,14 +11,51 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
-            <tr>
+            <tr id="{{user.id}}" *ngIf="user.role!='SuperAdmin'">
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
-                <td><span><i class="bi bi-pencil-square text-warning"></i></span></td>
-                <td><span><i class="bi bi-trash text-danger"></i></span></td>
+                <td class="deleteAndReconfigColumn"  (click)="showDialog(user)" >
+                    <span  class="btn btn-warning">
+                        <i class="bi bi-pencil-square text-white">
+                        </i>
+                    </span>
+                 </td>
+                <td class="deleteAndReconfigColumn" (click)="deleteUser(user.id)" >
+                    <span style="color: white;"  class="btn btn-danger">
+                        <i class="bi bi-trash text-danger text-white"></i>
+                    </span>
+                </td>
             </tr>
         </ng-template>
     </p-table>
+</div>
+
+
+<div class="card flex justify-content-center">
+    <p-dialog header="ID : {{dialogUser?.id}}" [(visible)]="visible" [style]="{width: '50vw'}" [closable]>
+        <div class="card flex justify-content-center text-center">
+            <form class="form">
+                <label for="name ">UserName  </label> 
+                <br>
+                <br>
+                <input id="name" type="text" class="form-control bg-secondary text-white" value="{{dialogUser?.name}}" #name> <br> <br>
+                <label for="name">Email</label> 
+                <br>
+                <input type="text" class="form-control bg-secondary text-white"value="{{dialogUser?.email}}" #email> 
+                <br>
+                <br> 
+                <button class="btn btn-danger" (click)="updateUser(name.value,email.value)" >Güncelle</button>
+                <!-- <button class="btn btn-danger" >Güncelle</button> -->
+            </form>
+        </div>
+    </p-dialog>
+</div>
+
+
+<div *ngIf="showMessage">
+    <div class="card">
+        <p-messages [(value)]="messages" ></p-messages>
+    </div>
 </div>

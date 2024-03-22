@@ -24,8 +24,9 @@ export class JwtInterceptService implements HttpInterceptor {//Interceptor servi
       catchError((error:HttpErrorResponse)=>{//eger bir hata varsa yakalanır
         if(error.status===401){//hata durum kodu kontrol edilir
           this.router.navigate(['login-signup'])//gaurd tetiklenir. Yonlendirme yapılır.
+          console.log("token silimdi");
+          localStorage.removeItem("token")//token gecersiz oldugundan dolayı locakStorage dan token silinir.
         }
-        localStorage.removeItem("token")//token gecersiz oldugundan dolayı locakStorage dan token silinir.
         return throwError(()=>error);//error fırlatıldı. Bu ise yeni gelen throwError operatorudur. Bu hata httpClient isteklerinin error kısmında yakalanır.
       })
     );
