@@ -13,10 +13,10 @@
             <tr *ngIf="user.role!='SuperAdmin'">
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.role }}</td>
+                <td >{{ user.role }}</td>
                 <td >
                     <p-dropdown #dropdown id="{{user.id}}"  [options]="userOpt" optionLabel="name"
-                     [showClear]="true" placeholder="Rol Seçiniz"  (onChange)="changeRole(user,dropdown.value)" >
+                     [showClear]="true" placeholder="Rol Seçiniz"  (onChange)="changeRole(user,dropdown.value)">
                     </p-dropdown>
                 </td>
                 <td><button id="btn{{user.id}}" class="btn btn-danger" [disabled]="true" (click)="changeRoleContinue(user,dropdown.value)">Onayla</button></td>

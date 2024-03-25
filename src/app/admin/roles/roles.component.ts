@@ -18,7 +18,6 @@ export class RolesComponent extends BaseComponent implements OnInit {
 
 
   selectedRoles="";
-  // isActive:boolean=false;
 
 ngOnInit(): void {
   this.getAllUser()
@@ -41,16 +40,9 @@ getAllUser(){
     }
   })
 }
-
-//  _user:Users=new Users();
-
   changeRole(user:Users,selectedRoles:User){
-    // console.log(user.role[0]);
-    // console.log(selectedRoles.name);
-    
-    // user.role=[]
-    // this._user=user;
-    // this.httpClient.put({controller:"Admin",action:""},user)
+    user.role.push(selectedRoles.name)
+    this.chr.detectChanges();
     const button:HTMLButtonElement =document.getElementById("btn"+user.id) as HTMLButtonElement;
     console.log(user);
     
@@ -61,7 +53,6 @@ getAllUser(){
       button.disabled=false;
     }
     this.chr.detectChanges();
-    // user.role.push(selectedRoles.name)
   }
   changeRoleContinue(user:Users,selectedValue){///Burada kalındı.
     this.showSpinner();
@@ -75,9 +66,13 @@ getAllUser(){
         button.disabled=true;
         console.log(this.users);
         console.log(data);
+        this.selectedRoles=selectedValue
+        this.chr.detectChanges()
+        this.getAllUser();
       },
-      error:()=>{
+      error:(err)=>{
         alert("Rol güncelleme başarısız oldu...")
+        console.log(err);
         this.hideSpinner();
       }
     })    
