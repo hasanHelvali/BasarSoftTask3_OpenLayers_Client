@@ -53,6 +53,8 @@ isModalActive:boolean=false;
         this.listLocAndUsers=data;
         this.dataSource=data;
        this.hideSpinner();
+       console.log(data);
+       
       },
       error:(err)=>{
         alert("Kayıtlar Getirilirken Bir Hata Oluştu.");

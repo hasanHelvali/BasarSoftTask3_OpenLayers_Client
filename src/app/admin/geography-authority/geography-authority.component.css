@@ -1,0 +1,5 @@
+.textarea-container {
+    max-height: 200px; /* İstenilen yüksekliği ayarlayın */
+    overflow-y: auto; /* İçerik dolunca scroll bar göster */
+  }
+

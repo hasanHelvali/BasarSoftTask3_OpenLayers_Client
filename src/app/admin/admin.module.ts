@@ -11,12 +11,17 @@ import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule} from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { GeographyAuthorityComponent } from './geography-authority/geography-authority.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [
     UsersComponent,
     RolesComponent,
     AdminPanelComponent,
+    GeographyAuthorityComponent,
     
   ],
   imports: [
@@ -25,6 +30,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     RouterModule.forChild([
       {path:"roles",component:RolesComponent,canActivate:[authGuard],},
       {path:"users",component:UsersComponent,canActivate:[authGuard]},
+      {path:"geoAuth",component:GeographyAuthorityComponent,canActivate:[authGuard]},
       {path:"**",component:AdminPanelComponent,canActivate:[authGuard]}
     ]),
     DropdownModule,
@@ -32,6 +38,10 @@ import { DialogService } from 'primeng/dynamicdialog';
     DialogModule,
     ButtonModule,
     MessagesModule,
-  ]
+    DynamicDialogModule ,
+    ToastModule,
+    TagModule
+  ],
+providers:[DialogService,MessageService]
 })
 export class AdminModule { }

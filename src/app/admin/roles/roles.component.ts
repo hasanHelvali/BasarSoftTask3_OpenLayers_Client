@@ -71,7 +71,7 @@ getAllUser(){
         this.getAllUser();
       },
       error:(err)=>{
-        alert("Rol güncelleme başarısız oldu...")
+        alert("Rol güncelleme başarısız oldu.../Yetkisiz Islem")
         console.log(err);
         this.hideSpinner();
       }

@@ -7,6 +7,7 @@ import { BaseComponent } from 'src/app/common/base/base.component';
 import { Users } from 'src/app/models/users';
 import { CustomHttpClient } from 'src/app/services/customHttpClient.service';
 import { DialogService } from 'primeng/dynamicdialog'
+import { GeneralDataService } from 'src/app/services/general-data.service';
 declare var $:any
 @Component({
   selector: 'app-users',
@@ -20,7 +21,7 @@ export class UsersComponent extends BaseComponent implements OnInit {
   dialogUser:Users
 
   showMessage:boolean=false;
-  constructor(private httpClient:CustomHttpClient,ngxSpinner:NgxSpinnerService) {
+  constructor(private httpClient:CustomHttpClient,ngxSpinner:NgxSpinnerService,public generalDataService:GeneralDataService) {
     super(ngxSpinner)
   }
   ngOnInit(): void {

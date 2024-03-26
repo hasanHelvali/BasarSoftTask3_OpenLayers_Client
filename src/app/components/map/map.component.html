@@ -38,7 +38,7 @@
   {{roles}}
   <a routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
 </div> -->
-<div *ngIf="this.generalDataService.role=='SuperAdmin'">
+<div *ngIf="this.generalDataService.role=='SuperAdmin' || this.generalDataService.role=='Admin'">
   <a routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
 </div>
 

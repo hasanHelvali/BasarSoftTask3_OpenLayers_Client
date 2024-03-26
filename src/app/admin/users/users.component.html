@@ -16,18 +16,25 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
-                <td class="deleteAndReconfigColumn"  (click)="showDialog(user)" >
-                    <span  class="btn btn-warning">
+                <td *ngIf="this.generalDataService.role=='SuperAdmin' else noAuth" class="deleteAndReconfigColumn"  (click)="showDialog(user)" >
+                    <span class="btn btn-warning">
                         <i class="bi bi-pencil-square text-white">
                         </i>
                     </span>
                  </td>
-                <td class="deleteAndReconfigColumn" (click)="deleteUser(user.id)" >
-                    <span style="color: white;"  class="btn btn-danger">
+                <td *ngIf="this.generalDataService.role=='SuperAdmin' else noAuth"  class="deleteAndReconfigColumn" (click)="deleteUser(user.id)" >
+                    <span  style="color: white;"  class="btn btn-danger">
                         <i class="bi bi-trash text-danger text-white"></i>
                     </span>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template #noAuth>
+            <td class="deleteAndReconfigColumn" >
+                <span >
+                    Yetki Yok
+                </span>
+             </td>
         </ng-template>
     </p-table>
 </div>
