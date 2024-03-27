@@ -31,7 +31,7 @@ import { MatDialog } from '@angular/material/dialog';
 import WKT from 'ol/format/WKT';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 import { UpdateLocation } from 'src/app/models/updateLocation';
-import { PointWKT } from 'src/app/models/pointWkt';
+import { InteractionAuth } from 'src/app/models/pointWkt';
 import { Tooltip } from 'primeng/tooltip';
 import { overlapsType } from 'ol/expr/expression';
 import { toStringHDMS } from 'ol/coordinate';
@@ -349,14 +349,9 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
 
 
     startIntersection(){
-      // this.closeToolTip()
       this.changeDetectorRef.detectChanges();
       this.vectorLayer.getSource().clear();
       let that=this;
-      // this.clearFeature();
-      // this.clearInteraction();
-      // this.startIntersection();
-      // this.map.addInteraction("Point");
       const drawInteraction = new Draw({
         type: "Point", // Çizilebilecek şekil türünü (Point, LineString, Polygon) seciyorum
       });//point olusuturukldu
@@ -366,7 +361,6 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
         var feature = event.feature;
         var geometry = feature.getGeometry() as any;
         var coordinates= geometry.getCoordinates();
-        
         const _type: FeatureType = event.feature
           .getGeometry()
           .getType() as FeatureType;
@@ -378,40 +372,50 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
           featureProjection: 'EPSG:3857'
         });
         that.showSpinner();
-        var pointWKT:PointWKT=new PointWKT();
-        pointWKT.pointWKT=_locWkt
-
+        const role = that.generalDataService.role;//rolu aldım.
+        const userName = that.generalDataService.userName;
+        var interactAuth:InteractionAuth=new InteractionAuth();
+        interactAuth.pointWKT=_locWkt
+        interactAuth.role=role;
+        interactAuth.userName=userName;
         that.showSpinner();
-        that.httpCLientService.post<any>({controller:"maps",action:"InteractionExists"},pointWKT).subscribe({
+        that.httpCLientService.post<any>({controller:"maps",action:"InteractionExists"},interactAuth).subscribe({//kesisim varsa
           next:(data)=>{
             that.hideSpinner();
             if(data==null){
-              // console.log("null");
-              // alert("Kesişim Yok.")
               that.generalDataService.modelIntersection.next("Bir Kesişim Bulunamadı.");
               that.overlay.setPosition(coordinates);
-              // that.closeToolTip();<
-              //  this.overlay.setPosition(undefined);
               that.generalDataService.intersectionActive.next(false);
-
               that.vectorLayer.getSource().clear()
-              // that.clearInteraction()
-               that.changeDetectorRef.detectChanges()
+              that.changeDetectorRef.detectChanges()
               return 
             }
+            //aktif user i almam gerek.
+            // that.httpCLientService.post<any>({controller:"",action:""},{userName:userName,wkt:pointWKT}).subscribe({
+            //   next:(data)=>{
+
+            //   },
+            //   error:(err)=>{
+
+            //   }
+            // })
+
             that.intersection=data as LocAndUsers;
-            
             that.overlay = new Overlay({
               element: document.getElementById('popup'),
               autoPan: true,
             });
-
             that.map.addOverlay(that.overlay);
             const hdms = toStringHDMS(toLonLat(coordinates));
+            that.changeDetectorRef.detectChanges();
             that.generalDataService.modelIntersection.next({hdms:hdms,name:data.name });
+            that.changeDetectorRef.detectChanges();
             that.overlay?.setPosition(coordinates);
+            that.changeDetectorRef.detectChanges();
             that.vectorLayer.getSource().addFeature(feature);
             that.changeDetectorRef.detectChanges();
+
+            that.httpCLientService.get<any>({controller:"",action:""})
           },
           error:(err)=>{
             alert("Analiz Yapılamadı.")
@@ -419,9 +423,6 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
             that.closeToolTip();
           }
         }) 
-        
-
-
         that.map.on('click', (event) => {
            that.clearFeature()
            that.pixel = event.pixel
@@ -434,18 +435,13 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
     console.log("-----------------");
     this.clearInteraction();
    this.overlay.setPosition(undefined);
-  //  this.overlay.dispose();
    this.generalDataService.intersectionActive.next(false);
    this.changeDetectorRef.detectChanges();
   }
-
-
   logout(){
     this.authService.removeToken()//hafızadaki token temizlendi.
     this.changeDetectorRef.detectChanges();
-
   }
-
 }
 export enum FeatureType {
   Circle = 'Circle',

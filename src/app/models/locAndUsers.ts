@@ -3,4 +3,6 @@ export class LocAndUsers{
     name:string;
     type:string;
     wkt:string;
+    userId:string;
+    userName:string
 }

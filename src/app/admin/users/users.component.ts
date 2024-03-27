@@ -53,7 +53,7 @@ export class UsersComponent extends BaseComponent implements OnInit {
 
   deleteUser(id:string){
     this.showSpinner();
-    const elementToHide = document.getElementById(id);
+    const elementToHide = document.getElementById(id)!=null?document.getElementById(id):HTMLElement;
     console.log(elementToHide);
     this.httpClient.delete({controller:"Admin"},id).subscribe({
       next:(data)=>{

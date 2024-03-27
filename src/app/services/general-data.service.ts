@@ -18,7 +18,6 @@ export class GeneralDataService {
    *
    */
   constructor(private httpCLientService:CustomHttpClient) {
-    
   }
   public veriOlusturulduSubject = new Subject<any>()
   public closedModal = new Subject<any>()
@@ -114,9 +113,9 @@ export class GeneralDataService {
     this.resolvedToken=jwtDecode(this.token);
     this.role= this.resolvedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; 
     this.userName=this.resolvedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
-    console.log(this.resolvedToken);
-    console.log(this.role);
-    console.log(this.userName);
+    // console.log(this.resolvedToken);
+    // console.log(this.role);
+    // console.log(this.userName);
   }
 
 

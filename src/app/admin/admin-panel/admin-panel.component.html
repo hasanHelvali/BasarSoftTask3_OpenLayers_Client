@@ -12,6 +12,6 @@
 </div>
 
 <div class="content">
-    <label for="" class="form-label  rounded-5 border-warning">Kullanıcı : {{generalDataService.userName}}</label> <hr>
+    <label for="" class="form-label  rounded-5 border-warning">Kullanıcı : {{generalDataService.userName?generalDataService.userName:"Bilinmeyen Kullanıcı"}}</label> <hr>
     <router-outlet></router-outlet>
 </div>

@@ -43,7 +43,11 @@ getAllUser(){
   changeRole(user:Users,selectedRoles:User){
     user.role.push(selectedRoles.name)
     this.chr.detectChanges();
-    const button:HTMLButtonElement =document.getElementById("btn"+user.id) as HTMLButtonElement;
+    // const button:HTMLButtonElement =document.getElementById("btn"+user.id) as HTMLButtonElement;
+    var button:HTMLButtonElement
+    if(document.getElementById("btn"+user.id)){
+      button =document.getElementById("btn"+user.id) as HTMLButtonElement;
+    }
     console.log(user);
     
     if(user.role[0]==selectedRoles.name){
@@ -62,10 +66,13 @@ getAllUser(){
       next:(data)=>{
         this.hideSpinner();
         alert("Rol güncelleme başarılı...")
-        const button:HTMLButtonElement =document.getElementById("btn"+user.id) as HTMLButtonElement;
-        button.disabled=true;
-        console.log(this.users);
-        console.log(data);
+        var button:HTMLButtonElement;
+        if(document.getElementById("btn"+user.id)){
+          button =document.getElementById("btn"+user.id) as HTMLButtonElement;
+          button.disabled=true;
+        }
+        // console.log(this.users);
+        // console.log(data);
         this.selectedRoles=selectedValue
         this.chr.detectChanges()
         this.getAllUser();

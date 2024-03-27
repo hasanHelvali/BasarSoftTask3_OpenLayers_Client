@@ -21,16 +21,6 @@ export class IntersectionComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
   ngOnInit(): void {
-    // this.overlay=  new Overlay({
-    //   element: this.container,
-    //   autoPan: {
-    //     animation: {
-    //       duration: 250,
-    //     },
-    //   },
-    // });
-
-
     this.generalDataService.modelIntersection.subscribe({
       next:(data)=>{
         this.customIntersec=data
@@ -55,14 +45,15 @@ export class IntersectionComponent extends BaseComponent implements OnInit {
 
   startIntersection(){
     this.generalDataService.startIntersection.next(true);
-    // this.isActive=true;
     this.generalDataService.intersectionActive.next(true);
     this.changeDetectorRef.detectChanges();
-  }
 
+    console.log(this.customIntersec?.name);
+    console.log(this.customIntersec?.hdms);
+    
+  }
   close(){
     this.generalDataService.closeIntersection.next("");
-    // this.isActive=false;
     this.generalDataService.startIntersection.next(false);
     this.changeDetectorRef.detectChanges();
   }

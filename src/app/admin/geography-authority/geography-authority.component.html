@@ -10,7 +10,7 @@
                 <th>Topoloji Tipi</th>
                 <th>Topoloji WKT</th>
                 <th> Aktif Kullanıcı</th>
-                <th> Kullanıcı Seç</th>
+                <th> Kullanıcı Seç / Sil</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-topology class="border-bottom  text-center " >
@@ -32,7 +32,13 @@
                     <hr>
                 </td>
                 <td> 
-                    
+                    <div *ngIf="topology.userId;else noTopology ">
+                        Aktif Kullanıcı ID: {{topology.userId}} <br>
+                        Aktif Kullanıcı Adı: {{topology.userName}}
+                    </div>
+                    <ng-template #noTopology>
+                        <span>Aktif Bir Kullanıcı Atanmadı</span>
+                    </ng-template>
                 </td>
                 <td> 
                     <div class="text-center">
@@ -48,7 +54,7 @@
 
 
 <div class="card flex justify-content-center">
-    <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+    <p-dialog header="Kullanıcılar" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
         <p-table [value]="users" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
                 <tr>
@@ -56,6 +62,8 @@
                     <th pSortableColumn="year">Name</th>
                     <th pSortableColumn="price">Email <p-sortIcon field="price"></p-sortIcon></th>
                     <th pSortableColumn="price">Role <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="price"> <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="price"> <p-sortIcon field="price"></p-sortIcon></th>
                     <th style="width:4em"></th>
                 </tr>
             </ng-template>
@@ -70,6 +78,10 @@
                     <td >
                         <button *ngIf="user.role[0]!='SuperAdmin'" type="button" pButton icon="pi pi-plus" 
                         (click)="assignTopology(user)">Bölgeye Ata</button>
+                    </td>
+                    <td >
+                        <button *ngIf="user.role[0]!='SuperAdmin'" type="button" pButton icon="pi pi-plus" 
+                        (click)="clearTopologyAndCloseModal(user)">Bölgeleri Temizle</button>
                     </td>
                 </tr>
             </ng-template>
