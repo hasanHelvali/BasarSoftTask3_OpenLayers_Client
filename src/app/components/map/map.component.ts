@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DebugElement,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -31,11 +32,12 @@ import { MatDialog } from '@angular/material/dialog';
 import WKT from 'ol/format/WKT';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 import { UpdateLocation } from 'src/app/models/updateLocation';
-import { InteractionAuth } from 'src/app/models/pointWkt';
+import { InteractionAuth } from 'src/app/models/intersectionAuth';
 import { Tooltip } from 'primeng/tooltip';
 import { overlapsType } from 'ol/expr/expression';
 import { toStringHDMS } from 'ol/coordinate';
 import { AuthService } from 'src/app/services/auth.service';
+import { Login } from 'src/app/models/login';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -335,7 +337,7 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
     });
 }
     primeNgModalFeature(wkt){
-      console.log(wkt);
+      // console.log(wkt);
     this.vectorLayer.getSource().clear();
     var format=new WKT();
     const feature = format.readFeature(wkt,{
@@ -356,70 +358,82 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
         type: "Point", // Çizilebilecek şekil türünü (Point, LineString, Polygon) seciyorum
       });//point olusuturukldu
       this.map.addInteraction(drawInteraction);//Point seklindeki interaction haritaya eklendi.
-
-      drawInteraction.on('drawend', function (event) {
+      
+      drawInteraction.on('drawstart', function (event) {
+        console.log("-------");
+        
+      })
+        drawInteraction.on('drawend', function (event) {
+        that.showSpinner();
         var feature = event.feature;
         var geometry = feature.getGeometry() as any;
         var coordinates= geometry.getCoordinates();
+        that.generalDataService.intersectionPosition.next(coordinates);
+        if( that.overlay.getElement()){
+          that.overlay.setPosition(coordinates)
+          console.log("setposiiton var");
+        }
+        that.changeDetectorRef.detectChanges()
+
         const _type: FeatureType = event.feature
           .getGeometry()
           .getType() as FeatureType;
-        var geometry = feature.getGeometry() as any;
-        console.log(feature.getGeometry());
+
+          var geometry = feature.getGeometry() as any;
+
         var format = new WKT();
+
         const _locWkt = format.writeGeometry(feature.getGeometry(), {
           dataProjection: 'EPSG:4326',
           featureProjection: 'EPSG:3857'
         });
-        that.showSpinner();
+
         const role = that.generalDataService.role;//rolu aldım.
-        const userName = that.generalDataService.userName;
+        const id = that.generalDataService.identifier;
         var interactAuth:InteractionAuth=new InteractionAuth();
         interactAuth.pointWKT=_locWkt
         interactAuth.role=role;
-        interactAuth.userName=userName;
-        that.showSpinner();
+        interactAuth.id=id;
+
         that.httpCLientService.post<any>({controller:"maps",action:"InteractionExists"},interactAuth).subscribe({//kesisim varsa
           next:(data)=>{
-            that.hideSpinner();
+            console.log("Akıs Burada");
+            that.showSpinner();
             if(data==null){
               that.generalDataService.modelIntersection.next("Bir Kesişim Bulunamadı.");
-              that.overlay.setPosition(coordinates);
               that.generalDataService.intersectionActive.next(false);
               that.vectorLayer.getSource().clear()
               that.changeDetectorRef.detectChanges()
+              that.hideSpinner();
               return 
             }
-            //aktif user i almam gerek.
-            // that.httpCLientService.post<any>({controller:"",action:""},{userName:userName,wkt:pointWKT}).subscribe({
-            //   next:(data)=>{
-
-            //   },
-            //   error:(err)=>{
-
-            //   }
-            // })
+            that.hideSpinner();
 
             that.intersection=data as LocAndUsers;
             that.overlay = new Overlay({
               element: document.getElementById('popup'),
               autoPan: true,
             });
+
             that.map.addOverlay(that.overlay);
             const hdms = toStringHDMS(toLonLat(coordinates));
-            that.changeDetectorRef.detectChanges();
             that.generalDataService.modelIntersection.next({hdms:hdms,name:data.name });
-            that.changeDetectorRef.detectChanges();
             that.overlay?.setPosition(coordinates);
-            that.changeDetectorRef.detectChanges();
             that.vectorLayer.getSource().addFeature(feature);
             that.changeDetectorRef.detectChanges();
-
-            that.httpCLientService.get<any>({controller:"",action:""})
+            that.hideSpinner();
+            
           },
           error:(err)=>{
-            alert("Analiz Yapılamadı.")
+            alert("Kesisim veya Yetki Yok")
             that.hideSpinner();
+            that.generalDataService.modelIntersection.next("Bir Kesişim Bulunamadı.");
+              that.generalDataService.intersectionActive.next(false);
+              that.vectorLayer.getSource().clear()
+              that.generalDataService.closeIntersection.next(true);
+              that.hideSpinner();
+              that.changeDetectorRef.detectChanges()
+              console.log(err);
             that.closeToolTip();
           }
         }) 

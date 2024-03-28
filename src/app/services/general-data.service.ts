@@ -40,6 +40,8 @@ export class GeneralDataService {
   
   public isAuth= new Subject<any>()
 
+  public intersectionPosition= new Subject<any>()
+
   // public token= new Subject<any>()
   // public roles= new Subject<any>()
 
@@ -107,12 +109,13 @@ export class GeneralDataService {
   resolvedToken:string;
   role:string;
   userName:string;
-
+  identifier:string;
   jwtResolve(){
     this.token= localStorage.getItem('token');
     this.resolvedToken=jwtDecode(this.token);
     this.role= this.resolvedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; 
     this.userName=this.resolvedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+    this.identifier=this.resolvedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
     // console.log(this.resolvedToken);
     // console.log(this.role);
     // console.log(this.userName);

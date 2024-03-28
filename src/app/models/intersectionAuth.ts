@@ -1,5 +1,5 @@
 export class InteractionAuth{
     role:string;
-    userName:string;
+    id:string;
     pointWKT:string;
 }

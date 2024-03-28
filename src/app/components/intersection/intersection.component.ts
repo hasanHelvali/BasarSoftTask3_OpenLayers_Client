@@ -24,12 +24,15 @@ export class IntersectionComponent extends BaseComponent implements OnInit {
     this.generalDataService.modelIntersection.subscribe({
       next:(data)=>{
         this.customIntersec=data
+        console.log(this.customIntersec);
+        
         this.changeDetectorRef.detectChanges()
       }
     })
     this.generalDataService.intersectionActive.subscribe({
       next:(data)=>{
         this.isActive=data
+        console.log(data);
         this.changeDetectorRef.detectChanges()
       }
     })
@@ -45,12 +48,25 @@ export class IntersectionComponent extends BaseComponent implements OnInit {
 
   startIntersection(){
     this.generalDataService.startIntersection.next(true);
+    this.changeDetectorRef.detectChanges();
     this.generalDataService.intersectionActive.next(true);
     this.changeDetectorRef.detectChanges();
+    // console.log(this.customIntersec?.name);
+    // console.log(this.customIntersec?.hdms);
+    var tooltipElement = document.getElementById('tooltip');
+    var tooltipOverlay =tooltipElement as unknown as Overlay
+     this.generalDataService.intersectionPosition.subscribe({
+    next:(coordinate)=>{
+        tooltipOverlay.setPosition(coordinate);
+        this.changeDetectorRef.detectChanges();
+      }
+    })
+  }
 
-    console.log(this.customIntersec?.name);
-    console.log(this.customIntersec?.hdms);
-    
+  startIntersection2(){
+    this.generalDataService.startIntersection.next(true);
+    this.generalDataService.intersectionActive.next(true);
+    this.changeDetectorRef.detectChanges();
   }
   close(){
     this.generalDataService.closeIntersection.next("");
