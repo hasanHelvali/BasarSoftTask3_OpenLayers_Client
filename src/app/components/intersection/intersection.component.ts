@@ -24,15 +24,13 @@ export class IntersectionComponent extends BaseComponent implements OnInit {
     this.generalDataService.modelIntersection.subscribe({
       next:(data)=>{
         this.customIntersec=data
-        console.log(this.customIntersec);
-        
+        // console.log(this.customIntersec);
         this.changeDetectorRef.detectChanges()
       }
     })
     this.generalDataService.intersectionActive.subscribe({
       next:(data)=>{
         this.isActive=data
-        console.log(data);
         this.changeDetectorRef.detectChanges()
       }
     })
@@ -57,7 +55,8 @@ export class IntersectionComponent extends BaseComponent implements OnInit {
     var tooltipOverlay =tooltipElement as unknown as Overlay
      this.generalDataService.intersectionPosition.subscribe({
     next:(coordinate)=>{
-        tooltipOverlay.setPosition(coordinate);
+        tooltipOverlay?.setPosition(coordinate);
+        this.isActive=true
         this.changeDetectorRef.detectChanges();
       }
     })

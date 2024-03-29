@@ -360,7 +360,6 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
       this.map.addInteraction(drawInteraction);//Point seklindeki interaction haritaya eklendi.
       
       drawInteraction.on('drawstart', function (event) {
-        console.log("-------");
         
       })
         drawInteraction.on('drawend', function (event) {
@@ -397,7 +396,6 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
 
         that.httpCLientService.post<any>({controller:"maps",action:"InteractionExists"},interactAuth).subscribe({//kesisim varsa
           next:(data)=>{
-            console.log("Akıs Burada");
             that.showSpinner();
             if(data==null){
               that.generalDataService.modelIntersection.next("Bir Kesişim Bulunamadı.");
@@ -433,7 +431,6 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
               that.generalDataService.closeIntersection.next(true);
               that.hideSpinner();
               that.changeDetectorRef.detectChanges()
-              console.log(err);
             that.closeToolTip();
           }
         }) 
@@ -446,7 +443,6 @@ export class MapComponent extends BaseComponent implements OnInit,OnChanges {
   }
   closeToolTip(){
     this.vectorLayer.getSource().clear()
-    console.log("-----------------");
     this.clearInteraction();
    this.overlay.setPosition(undefined);
    this.generalDataService.intersectionActive.next(false);

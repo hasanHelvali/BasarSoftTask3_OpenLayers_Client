@@ -29,7 +29,7 @@
   <app-prime-ng-modal id="typeButton3"></app-prime-ng-modal>
 </div>
 
-<div>
+<div *ngIf="generalDataService.role!='SuperAdmin'" >
   <app-intersection id="typeButton4"></app-intersection>
 </div>
 
@@ -39,8 +39,9 @@
   <a routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
 </div> -->
 <div *ngIf="this.generalDataService.role=='SuperAdmin' || this.generalDataService.role=='Admin'">
-  <a routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
+  <a  routerLink="/admin" class="btn btn-secondary" id="typeButton5" >Admin Paneli</a>
 </div>
+<!-- [routerLink]="[{ outlets: { adminOutlet: '' } }]" -->
 
 <div >
   <a routerLink="/login-signup" class="btn btn-secondary" id="typeButton6" (click)="logout()" >Çıkış{{roles}}</a>

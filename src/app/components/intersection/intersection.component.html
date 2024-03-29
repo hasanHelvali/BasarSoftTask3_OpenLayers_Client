@@ -1,14 +1,10 @@
 <div class="card flex justify-content-center">
     <p-button label="Intersection" styleClass="p-button-secondary" [disabled]="isActive" (onClick)="startIntersection()"></p-button>
     <!-- <p-button label="Intersection" styleClass="p-button-secondary" [disabled]="isActive" (onClick)="startIntersection2()"></p-button> -->
-    
-</div>
-    <div id="popup" class="ol-popup z-3 "*ngIf="customIntersec">
-      <a id="popup-closer" class="ol-popup-closer" (click)="close()"></a>
-      <div id="popup-content">
-        <span *ngIf="customIntersec.name && customIntersec.hdms">{{customIntersec.name}} {{customIntersec.hdms}}}}</span>
-    </div> 
 </div> 
-
-
-
+    <div id="popup" class="ol-popup z-3 " *ngIf="customIntersec!=null && isActive==true">
+        <a id="popup-closer" class="ol-popup-closer" (click)="close()" style="cursor: pointer;"></a>
+        <div id="popup-content">
+            <span *ngIf="customIntersec.name && customIntersec.hdms">{{customIntersec.name}} {{customIntersec.hdms}}</span>
+        </div> 
+    </div>

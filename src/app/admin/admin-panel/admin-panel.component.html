@@ -6,12 +6,26 @@
     <li *ngIf="this.generalDataService.role=='SuperAdmin'" class="item rounded-5 border-warning "><a routerLink="/admin/roles">Rol Düzenle</a></li><br>
     <li *ngIf="this.generalDataService.role=='SuperAdmin'" class="item rounded-5 border-warning "><a routerLink="/admin/geoAuth">Alan-Kullanıcı İlişkisi İzinleri</a></li><br>
     <li class="item rounded-5 border-warning "><a routerLink="/login-signup">Çıkış</a></li><br>
-    
   </ul>
 
+
+  <!-- <ul>
+    <label for="" class="form-label  rounded-5 border-warning">Admin Paneli</label> <hr>
+    <li class="item rounded-5 border-warning "><a routerLink="/maps">Haritaya Git</a></li> <br>
+    <li class="item rounded-5 border-warning "><a [routerLink]="[{ outlets: { adminOutlet: 'users' } }]">Tüm Kullanıcılar</a></li><br>
+    <li *ngIf="this.generalDataService.role=='SuperAdmin'" class="item rounded-5 border-warning "><a 
+      [routerLink]="[{ outlets: { adminOutlet: 'roles' } }]">Rol Düzenle</a></li><br>
+    <li *ngIf="this.generalDataService.role=='SuperAdmin'" class="item rounded-5 border-warning ">
+      <a [routerLink]="[{ outlets: { adminOutlet: 'geoAuth' } }]">Alan-Kullanıcı İlişkisi İzinleri</a>
+    </li><br>
+    <li class="item rounded-5 border-warning "><a routerLink="/login-signup">Çıkış</a></li><br>
+  </ul> -->
+  
 </div>
+<!-- <a [routerLink]="[{ outlets: { primaryOutlet: 'home' } }]">Ana Sayfa</a> -->
 
 <div class="content">
     <label for="" class="form-label  rounded-5 border-warning">Kullanıcı : {{generalDataService.userName?generalDataService.userName:"Bilinmeyen Kullanıcı"}}</label> <hr>
-    <router-outlet></router-outlet>
+    <router-outlet ></router-outlet>
+    <!-- <router-outlet name="adminOutlet" ></router-outlet> -->
 </div>

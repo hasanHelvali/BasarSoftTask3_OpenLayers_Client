@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from '../guards/custom.guard';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
@@ -16,6 +16,7 @@ import { GeographyAuthorityComponent } from './geography-authority/geography-aut
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
+
 @NgModule({
   declarations: [
     UsersComponent,
@@ -24,11 +25,18 @@ import { TagModule } from 'primeng/tag';
     GeographyAuthorityComponent,
     
   ],
+  
   imports: [
     TableModule,
     CommonModule,
     RouterModule.forChild([
-      {path:"roles",component:RolesComponent,canActivate:[authGuard],},
+      // {path:"",component:AdminPanelComponent,outlet:"adminOutlet", canActivate:[authGuard]},
+      // {path:"roles",component:RolesComponent,outlet:"adminOutlet",canActivate:[authGuard]},
+      // {path:"users",component:UsersComponent,outlet:"adminOutlet",canActivate:[authGuard]},
+      // {path:"geoAuth",component:GeographyAuthorityComponent,outlet:"adminOutlet",canActivate:[authGuard]},
+      // {path:"**",component:AdminPanelComponent,outlet:"adminOutlet",canActivate:[authGuard]}
+      {path:"",component:AdminPanelComponent, canActivate:[authGuard]},
+      {path:"roles",component:RolesComponent,canActivate:[authGuard]},
       {path:"users",component:UsersComponent,canActivate:[authGuard]},
       {path:"geoAuth",component:GeographyAuthorityComponent,canActivate:[authGuard]},
       {path:"**",component:AdminPanelComponent,canActivate:[authGuard]}

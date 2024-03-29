@@ -9,7 +9,6 @@ const routes: Routes = [
   {path:"",component:MapComponent,canActivate:[authGuard]},
   {path:"login-signup",component:LoginRegisterComponent},
   {path:"maps",component:MapComponent,canActivate:[authGuard]},
-  // {path:"admin",component:AdminPanelComponent,canActivate:[authGuard]},
   {path:"admin",component:AdminPanelComponent,
   loadChildren:()=>import("./admin/admin.module").then(module=>module.AdminModule),canActivate:[authGuard]},
   {path:"**",component:MapComponent,canActivate:[authGuard]},
